@@ -27,7 +27,7 @@ function TabNav({ list, value, onChange }) {
             {list.map(item => {
                 const selected = item.value === value;
                 return (
-                    <UnderlineNav.Link href="#" px={3} py={2} mr={0} selected={selected} onClick={() => onChange(item.value)}>{item.name}</UnderlineNav.Link>
+                    <UnderlineNav.Link key={item.value} href="#" px={3} py={2} mr={0} selected={selected} onClick={() => onChange(item.value)}>{item.name}</UnderlineNav.Link>
                 )
             })}
             {/*<UnderlineNav.Link href="#home" px={3} py={2} mr={0} selected>Request</UnderlineNav.Link>*/}

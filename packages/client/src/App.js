@@ -14,7 +14,8 @@ import ReactJson from "react-json-view";
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
 import {LogData} from "./data";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {io} from "socket.io-client";
 
 // const customTheme = deepmerge(theme, {
 //     fonts: {
@@ -23,7 +24,10 @@ import {useState} from "react";
 // })
 
 function App() {
-    const [connected, setConnected] = useState(false)
+    const [phone, setPhone] = useState('');
+    const [connected, setConnected] = useState(false);
+    const [connect] = useWs(connected && phone);
+    console.log(connect)
   return (
       <ThemeProvider>
           <BaseStyles>
@@ -45,7 +49,7 @@ function App() {
                       <Dropdown>
                           <Dropdown.Button>手机号</Dropdown.Button>
                       </Dropdown>
-                      <TextInput type="search" disabled={connected} width={160} />
+                      <TextInput type="search" disabled={connected} width={160} value={phone} onChange={(e) => setPhone(e.target.value)} />
                   </FilteredSearch>
                   { !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)} >开始</ButtonPrimary> }
                   { connected && <><ButtonDanger ml={2} onClick={() => setConnected(false)}>停止</ButtonDanger><Spinner size="medium"/></> }
@@ -68,6 +72,35 @@ function App() {
           </BaseStyles>
       </ThemeProvider>
   );
+}
+
+function useWs(phone) {
+    const [connected, setConnected] = useState(false);
+    console.log('useWs', phone)
+    useEffect(() => {
+        if(!phone) {
+            return;
+        }
+        const socket = io('http://localhost:3001/', {query: { phone: phone }})
+        console.log('connecting to socket: ' + socket.connected);
+        socket.on('connect', () => {
+            setConnected(true)
+        })
+
+        socket.on('disconnect', () => {
+            setConnected(false)
+        })
+
+        socket.on('msgToClient', (message) => {
+            console.log(message)
+            socket.emit('msgToServer', message)
+        })
+
+        return () => {
+            socket.close();
+        }
+    }, [phone])
+    return [connected]
 }
 
 export default App;
