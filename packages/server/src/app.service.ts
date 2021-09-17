@@ -17,9 +17,12 @@ export class AppService {
   }
 
   emitMessage(phone: string, body: any) {
-    if (this.listen.has(phone)) {
-      this.listen.get(phone).forEach((client) => client.emit('onData', body));
-    }
+    //不阻塞尽早返回
+    setTimeout(() => {
+      if (this.listen.has(phone)) {
+        this.listen.get(phone).forEach((client) => client.emit('onData', body));
+      }
+    }, 0);
   }
 
   addListener(client: Socket): void {
