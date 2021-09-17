@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@primer/components': ^29.0.0
+  '@primer/octicons-react': ^15.1.0
   '@testing-library/jest-dom': ^5.11.4
   '@testing-library/react': ^11.1.0
   '@testing-library/user-event': ^12.1.10
@@ -18,6 +19,7 @@ specifiers:
 
 dependencies:
   '@primer/components': registry.nlark.com/@primer/components/29.0.0_dffd0ceb4cf9d0bf8f8651e8aaf0990e
+  '@primer/octicons-react': registry.nlark.com/@primer/octicons-react/15.1.0_react@17.0.2
   '@testing-library/jest-dom': registry.nlark.com/@testing-library/jest-dom/5.14.1
   '@testing-library/react': registry.nlark.com/@testing-library/react/11.2.7_react-dom@17.0.2+react@17.0.2
   '@testing-library/user-event': registry.nlark.com/@testing-library/user-event/12.8.3
@@ -5033,6 +5035,8 @@ packages:
       json5: 2.2.0
       semver: 6.3.0
       source-map: 0.5.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@babel/generator/7.15.4:
@@ -5146,6 +5150,8 @@ packages:
       lodash.debounce: 4.0.8
       resolve: 1.20.0
       semver: 6.3.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@babel/helper-explode-assignable-expression/7.15.4:
@@ -6497,6 +6503,8 @@ packages:
       babel-plugin-polyfill-regenerator: registry.nlark.com/babel-plugin-polyfill-regenerator/0.2.2_@babel+core@7.12.3
       core-js-compat: registry.nlark.com/core-js-compat/3.17.3
       semver: 6.3.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@babel/preset-react/7.12.1_@babel+core@7.12.3:
@@ -6746,6 +6754,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -6858,6 +6867,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -7022,6 +7032,18 @@ packages:
     id: registry.nlark.com/@primer/octicons-react/13.0.0
     name: '@primer/octicons-react'
     version: 13.0.0
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      react: registry.nlark.com/react/17.0.2
+    dev: false
+
+  registry.nlark.com/@primer/octicons-react/15.1.0_react@17.0.2:
+    resolution: {integrity: sha1-D2hwDRGW4KZbXngkg9UgeRTNbmI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@primer/octicons-react/download/@primer/octicons-react-15.1.0.tgz}
+    id: registry.nlark.com/@primer/octicons-react/15.1.0
+    name: '@primer/octicons-react'
+    version: 15.1.0
     engines: {node: '>=8'}
     peerDependencies:
       react: '>=15'
@@ -7334,6 +7356,8 @@ packages:
       '@svgr/plugin-jsx': 5.5.0
       '@svgr/plugin-svgo': 5.5.0
       loader-utils: registry.nlark.com/loader-utils/2.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@testing-library/dom/7.31.2:
@@ -7741,6 +7765,8 @@ packages:
       regexpp: registry.nlark.com/regexpp/3.2.0
       semver: 7.3.5
       tsutils: 3.21.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@typescript-eslint/experimental-utils/3.10.1_eslint@7.32.0:
@@ -7759,6 +7785,7 @@ packages:
       eslint-scope: registry.nlark.com/eslint-scope/5.1.1
       eslint-utils: registry.nlark.com/eslint-utils/2.1.0
     transitivePeerDependencies:
+      - supports-color
       - typescript
     dev: false
 
@@ -7779,6 +7806,7 @@ packages:
       eslint-scope: registry.nlark.com/eslint-scope/5.1.1
       eslint-utils: registry.nlark.com/eslint-utils/3.0.0_eslint@7.32.0
     transitivePeerDependencies:
+      - supports-color
       - typescript
     dev: false
 
@@ -7800,6 +7828,8 @@ packages:
       '@typescript-eslint/typescript-estree': registry.nlark.com/@typescript-eslint/typescript-estree/4.31.1
       debug: registry.nlark.com/debug/4.3.2
       eslint: registry.nlark.com/eslint/7.32.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@typescript-eslint/scope-manager/4.31.1:
@@ -7845,6 +7875,8 @@ packages:
       lodash: 4.17.21
       semver: 7.3.5
       tsutils: 3.21.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@typescript-eslint/typescript-estree/4.31.1:
@@ -7865,6 +7897,8 @@ packages:
       is-glob: 4.0.1
       semver: 7.3.5
       tsutils: 3.21.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/@typescript-eslint/visitor-keys/3.10.1:
@@ -8373,6 +8407,8 @@ packages:
       '@babel/core': registry.nlark.com/@babel/core/7.12.3
       '@babel/helper-define-polyfill-provider': registry.nlark.com/@babel/helper-define-polyfill-provider/0.2.3_@babel+core@7.12.3
       semver: 6.3.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/babel-plugin-polyfill-corejs3/0.2.4_@babel+core@7.12.3:
@@ -8386,6 +8422,8 @@ packages:
       '@babel/core': registry.nlark.com/@babel/core/7.12.3
       '@babel/helper-define-polyfill-provider': registry.nlark.com/@babel/helper-define-polyfill-provider/0.2.3_@babel+core@7.12.3
       core-js-compat: registry.nlark.com/core-js-compat/3.17.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/babel-plugin-polyfill-regenerator/0.2.2_@babel+core@7.12.3:
@@ -8398,6 +8436,8 @@ packages:
     dependencies:
       '@babel/core': registry.nlark.com/@babel/core/7.12.3
       '@babel/helper-define-polyfill-provider': registry.nlark.com/@babel/helper-define-polyfill-provider/0.2.3_@babel+core@7.12.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/babel-plugin-styled-components/1.13.2_styled-components@5.3.1:
@@ -9223,8 +9263,28 @@ packages:
     name: debug
     version: 4.3.2
     engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: registry.nlark.com/ms/2.1.2
+    dev: false
+
+  registry.nlark.com/debug/4.3.2_supports-color@6.1.0:
+    resolution: {integrity: sha1-8KScGKyHeeMdSgxgKd+3aHPHQos=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/debug/download/debug-4.3.2.tgz}
+    id: registry.nlark.com/debug/4.3.2
+    name: debug
+    version: 4.3.2
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      supports-color: registry.nlark.com/supports-color/6.1.0
     dev: false
 
   registry.nlark.com/decimal.js/10.3.1:
@@ -9435,6 +9495,7 @@ packages:
       yeast: 0.1.2
     transitivePeerDependencies:
       - bufferutil
+      - supports-color
       - utf-8-validate
     dev: false
 
@@ -9623,6 +9684,7 @@ packages:
       '@typescript-eslint/experimental-utils': registry.nlark.com/@typescript-eslint/experimental-utils/4.31.1_eslint@7.32.0
       eslint: registry.nlark.com/eslint/7.32.0
     transitivePeerDependencies:
+      - supports-color
       - typescript
     dev: false
 
@@ -9675,6 +9737,7 @@ packages:
       '@typescript-eslint/experimental-utils': registry.nlark.com/@typescript-eslint/experimental-utils/3.10.1_eslint@7.32.0
       eslint: registry.nlark.com/eslint/7.32.0
     transitivePeerDependencies:
+      - supports-color
       - typescript
     dev: false
 
@@ -10615,6 +10678,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -10642,6 +10706,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -10678,6 +10743,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - utf-8-validate
     dev: false
 
@@ -10824,6 +10890,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -10956,6 +11023,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -10997,6 +11065,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -11131,6 +11200,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - canvas
+      - supports-color
       - ts-node
       - utf-8-validate
     dev: false
@@ -12551,6 +12621,7 @@ packages:
       - node-sass
       - sass
       - sockjs-client
+      - supports-color
       - ts-node
       - type-fest
       - utf-8-validate
@@ -13016,6 +13087,7 @@ packages:
       socket.io-parser: 4.0.4
     transitivePeerDependencies:
       - bufferutil
+      - supports-color
       - utf-8-validate
     dev: false
 
@@ -13766,7 +13838,7 @@ packages:
       chokidar: registry.nlark.com/chokidar/2.1.8
       compression: 1.7.4
       connect-history-api-fallback: 1.6.0
-      debug: registry.nlark.com/debug/4.3.2
+      debug: registry.nlark.com/debug/4.3.2_supports-color@6.1.0
       del: 4.1.1
       express: 4.17.1
       html-entities: 1.4.0
@@ -13939,6 +14011,8 @@ packages:
       workbox-streams: registry.nlark.com/workbox-streams/5.1.4
       workbox-sw: registry.nlark.com/workbox-sw/5.1.4
       workbox-window: registry.nlark.com/workbox-window/5.1.4
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/workbox-cacheable-response/5.1.4:
@@ -14046,6 +14120,8 @@ packages:
       webpack: registry.nlark.com/webpack/4.44.2
       webpack-sources: registry.nlark.com/webpack-sources/1.4.3
       workbox-build: registry.nlark.com/workbox-build/5.1.4
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   registry.nlark.com/workbox-window/5.1.4:
@@ -14100,6 +14176,11 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: false
 
   registry.nlark.com/ws/7.5.5:

@@ -1,36 +1,24 @@
 import {
     Avatar,
     Box,
-    Breadcrumb,
     Button,
     Header,
-    StyledOcticon,
     ThemeProvider,
-    theme,
     TextInput,
     FilteredSearch,
     Dropdown,
     SubNav,
     BaseStyles,
     ButtonPrimary,
-    UnderlineNav,
-    Heading,
     ButtonDanger,
     Spinner,
-    Text
+    Text, StyledOcticon
 } from '@primer/components'
-import deepmerge from 'deepmerge'
-import ReactJson from "react-json-view";
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
-
-// const customTheme = deepmerge(theme, {
-//     fonts: {
-//         mono: 'Monolisa, monospace'
-//     }
-// })
+import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 
 function App() {
     const [phone, setPhone] = useState('');
@@ -47,7 +35,7 @@ function App() {
           <Header>
             <Header.Item>
               <Header.Link fontSize={2}>
-                {/*<StyledOcticon icon={MarkGithubIcon} size={32} mr={2} />*/}
+                <StyledOcticon icon={HubotIcon} size={32} mr={2} />
                 <span>Tunnel</span>
               </Header.Link>
             </Header.Item>
@@ -64,11 +52,10 @@ function App() {
                       </Dropdown>
                       <TextInput type="search" disabled={connected} width={160} value={phone} onChange={(e) => setPhone(e.target.value.trim())} />
                   </FilteredSearch>
-                  { !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)} >开始</ButtonPrimary> }
-                  { connected && <><ButtonDanger ml={2} onClick={() => setConnected(false)}>停止</ButtonDanger><Spinner size="medium"/></> }
+                  { !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)} ><TriangleRightIcon/>开始</ButtonPrimary> }
+                  { connected && <><ButtonDanger ml={2} onClick={() => setConnected(false)}><SquareFillIcon/>停止</ButtonDanger><Spinner size="medium"/></> }
                   <Button ml={2} onClick={() => setRequests([])}>清屏</Button>
-                  <Text fontWeight="bold" mt={1}>Filter:</Text>
-                  <TextInput type="search" width={240} value={filter} onChange={(e) => setFilter(e.target.value.trim())} />
+                  <TextInput type="search" placeholder="Path search" icon={SearchIcon} width={240} value={filter} onChange={(e) => setFilter(e.target.value.trim())} />
               </SubNav>
               <Box display="flex">
                   <Box flexGrow={1} mr={3}>
@@ -79,17 +66,12 @@ function App() {
                   </Box>
               </Box>
           </Box>
-          {/*<Breadcrumb>*/}
-          {/*  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>*/}
-          {/*  <Breadcrumb.Item href="/about">About</Breadcrumb.Item>*/}
-          {/*  <Breadcrumb.Item href="/about/team" selected>*/}
-          {/*    Team*/}
-          {/*  </Breadcrumb.Item>*/}
-          {/*</Breadcrumb>*/}
           </BaseStyles>
       </ThemeProvider>
   );
 }
+
+const REQ_MAX_LENGTH= 100;
 
 function useWs(phone) {
     const [connected, setConnected] = useState(false);
@@ -109,7 +91,7 @@ function useWs(phone) {
 
         socket.on('onData', (message) => {
             setRequests(l => {
-                if(l.length >= 20) { l = l.slice(0, 19) }
+                if(l.length >= REQ_MAX_LENGTH) { l = l.slice(0, REQ_MAX_LENGTH - 1) }
                 return [message, ...l];
             })
         })

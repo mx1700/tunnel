@@ -1,5 +1,6 @@
-import {Box} from "@primer/components";
+import {Box, Label} from "@primer/components";
 import dayjs from "dayjs";
+import {DetailLabel} from "./Common";
 
 export function RequestTable({ list, selectedItem, onSelect }) {
     console.log(list)
@@ -18,13 +19,21 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                     const selected = i === selectedItem;
                     const style = selected ? { background: "#ddf4ff" } : {};
                     const time = dayjs(i.time).format('HH:mm:ss')
+                    const colors = {
+                        'GET': 'bg.successInverse',
+                        'POST': 'bg.infoInverse',
+                        'DELETE': 'bg.dangerInverse',
+                        'PUT': 'bg.infoInverse',
+                        'PATCH': 'bg.infoInverse',
+                        'OPTION': 'bg.backdrop'
+                    }
                     return (
                         <tr
                             onClick={() => onSelect && onSelect(i)} key={i.requestId}
                             style={style}
                         >
                             <td>{i.domain}</td>
-                            <td>{i.method}</td>
+                            <td><Label variant="medium" sx={{mr: 2, bg:colors[i.method]}}>{i.method}</Label></td>
                             <td>{i.path}</td>
                             <td>{i.duration}ms</td>
                             <td>{time}</td>

@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto';
-
+const methods = ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTION'];
 export function LogData() {
   return {
     requestId: randomUUID(),
     domain: 'http://localhost:8080',
-    method: 'POST',
+    method: methods[Math.floor(Math.random() * methods.length)],
     path: '/blocks/' + randomUUID(),
     duration: 100,
     time: new Date().getTime(),

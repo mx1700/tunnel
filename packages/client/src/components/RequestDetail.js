@@ -1,6 +1,6 @@
 import {Box, Heading, UnderlineNav} from "@primer/components";
 import ReactJson from "react-json-view";
-import {Label} from "./Common";
+import {DetailLabel} from "./Common";
 import {useState} from "react";
 
 export function RequestDetail({ log }) {
@@ -49,15 +49,15 @@ function RequestInfo({ request }) {
     return (
         <Box p={3}>
             <Box mb={2}>
-                <Label>Query</Label>
-                <code>{request.query}</code>
+                <DetailLabel>Query</DetailLabel>
+                <code style={{fontSize:13}}>{request.query}</code>
             </Box>
             <Box mb={2}>
-              <Label>Body</Label>
+              <DetailLabel>Body</DetailLabel>
               <ReactJson src={request.body} name={false} displayDataTypes={false} />
             </Box>
             <Box>
-            <Label>Header</Label>
+            <DetailLabel>Header</DetailLabel>
             <ReactJson src={request.headers} name={false} displayDataTypes={false} />
             </Box>
         </Box>
@@ -68,11 +68,11 @@ function ResponseInfo({ response }) {
     return (
         <Box p={3}>
             <Box mb={2}>
-                <Label>Body</Label>
+                <DetailLabel>Body</DetailLabel>
                 <ReactJson src={response.body} name={false} displayDataTypes={false} />
             </Box>
             <Box>
-                <Label>Header</Label>
+                <DetailLabel>Header</DetailLabel>
                 <ReactJson src={response.headers} name={false} displayDataTypes={false} />
             </Box>
         </Box>
