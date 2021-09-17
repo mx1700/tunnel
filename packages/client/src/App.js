@@ -7,13 +7,22 @@ import {
     StyledOcticon,
     ThemeProvider,
     theme,
-    TextInput, FilteredSearch, Dropdown, SubNav, BaseStyles, ButtonPrimary, UnderlineNav, Heading, ButtonDanger, Spinner
+    TextInput,
+    FilteredSearch,
+    Dropdown,
+    SubNav,
+    BaseStyles,
+    ButtonPrimary,
+    UnderlineNav,
+    Heading,
+    ButtonDanger,
+    Spinner,
+    Text
 } from '@primer/components'
 import deepmerge from 'deepmerge'
 import ReactJson from "react-json-view";
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
-import {LogData} from "./data";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 
@@ -26,9 +35,13 @@ import {io} from "socket.io-client";
 function App() {
     const [phone, setPhone] = useState('');
     const [connected, setConnected] = useState(false);
-    const [connect] = useWs(connected && phone);
-    console.log(connect)
-  return (
+    const [requests, setRequests] = useWs(connected && phone);
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const [filter, setFilter] = useState('')
+
+    const listData = filter.length > 0 ? requests.filter((r) => r.path.includes(filter)) : requests;
+
+    return (
       <ThemeProvider>
           <BaseStyles>
           <Header>
@@ -49,17 +62,21 @@ function App() {
                       <Dropdown>
                           <Dropdown.Button>手机号</Dropdown.Button>
                       </Dropdown>
-                      <TextInput type="search" disabled={connected} width={160} value={phone} onChange={(e) => setPhone(e.target.value)} />
+                      <TextInput type="search" disabled={connected} width={160} value={phone} onChange={(e) => setPhone(e.target.value.trim())} />
                   </FilteredSearch>
                   { !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)} >开始</ButtonPrimary> }
                   { connected && <><ButtonDanger ml={2} onClick={() => setConnected(false)}>停止</ButtonDanger><Spinner size="medium"/></> }
-                  <Button ml={2}>清屏</Button>
+                  <Button ml={2} onClick={() => setRequests([])}>清屏</Button>
+                  <Text fontWeight="bold" mt={1}>Filter:</Text>
+                  <TextInput type="search" width={240} value={filter} onChange={(e) => setFilter(e.target.value.trim())} />
               </SubNav>
               <Box display="flex">
                   <Box flexGrow={1} mr={3}>
-                      <RequestTable />
+                      <RequestTable list={listData} selectedItem={selectedRequest} onSelect={setSelectedRequest} />
                   </Box>
-                  <RequestDetail log={LogData}/>
+                  <Box width="400">
+                    <RequestDetail log={selectedRequest}/>
+                  </Box>
               </Box>
           </Box>
           {/*<Breadcrumb>*/}
@@ -76,13 +93,12 @@ function App() {
 
 function useWs(phone) {
     const [connected, setConnected] = useState(false);
-    console.log('useWs', phone)
+    const [requests, setRequests] = useState([]);
     useEffect(() => {
         if(!phone) {
             return;
         }
         const socket = io('http://localhost:3001/', {query: { phone: phone }})
-        console.log('connecting to socket: ' + socket.connected);
         socket.on('connect', () => {
             setConnected(true)
         })
@@ -91,16 +107,18 @@ function useWs(phone) {
             setConnected(false)
         })
 
-        socket.on('msgToClient', (message) => {
-            console.log(message)
-            socket.emit('msgToServer', message)
+        socket.on('onData', (message) => {
+            setRequests(l => {
+                if(l.length >= 20) { l = l.slice(0, 19) }
+                return [message, ...l];
+            })
         })
 
         return () => {
             socket.close();
         }
     }, [phone])
-    return [connected]
+    return [requests, setRequests]
 }
 
 export default App;

@@ -14,11 +14,18 @@ export function RequestDetail({ log }) {
                 { value: 3, name: 'DB' },
                 { value: 4, name: 'Redis' },
             ]} value={nav} onChange={setNav}/>
-            {nav === 1 && <RequestInfo request={log.request} />}
-            {nav === 2 && <ResponseInfo response={log.response} />}
+            {log ? (
+                <>
+                    {nav === 1 && <RequestInfo request={log.request} />}
+                    {nav === 2 && <ResponseInfo response={log.response} />}
+                </>
+            ) : (
+                <Box p={5}>N/A</Box>
+            )}
         </Box>
     )
 }
+
 
 function TabNav({ list, value, onChange }) {
 

@@ -1,12 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { Socket } from 'socket.io';
+import { LogData } from './data';
 
 @Injectable()
 export class AppService {
   listen: Map<string, Set<Socket>> = new Map();
 
+  constructor() {
+    setInterval(() => {
+      this.emitMessage('1', LogData());
+    }, 1000);
+  }
+
   getHello(): string {
     return 'Hello World!';
+  }
+
+  emitMessage(phone: string, body: any) {
+    if (this.listen.has(phone)) {
+      this.listen.get(phone).forEach((client) => client.emit('onData', body));
+    }
   }
 
   addListener(client: Socket): void {

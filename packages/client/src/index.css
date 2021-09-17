@@ -39,4 +39,27 @@ table, th, td {
   border: 1px solid #e1e4e8;
   padding: 8px 12px;
 }
+tr:hover{
+  background-color: #f6f8fa;
+}
+
+/*a {*/
+/*  background-color: #ffffff,*/
+/*canvasInverse: #6e7781,*/
+/*canvasInset: #f6f8fa,*/
+/*primary: #ffffff,*/
+/*secondary: #f6f8fa,*/
+/*tertiary: #f6f8fa,*/
+/*overlay: #ffffff,*/
+/*backdrop: rgba(27,31,36,0.5),*/
+/*info: #ddf4ff,*/
+/*infoInverse: #0969da,*/
+/*danger: #FFEBE9,*/
+/*dangerInverse: #cf222e,*/
+/*success: #dafbe1,*/
+/*successInverse: #2da44e,*/
+/*warning: #fff8c5,*/
+/*warningInverse: #bf8700*/
+/*}*/
+
 
