@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { RequestInfoDto } from './request-info.dto';
 
 @Controller()
 export class AppController {
@@ -10,8 +11,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/logRequest')
-  logRequest(): string {
+  @Post('/logRequest/:user')
+  logRequest(
+    @Param('user') user: string,
+    @Body() info: RequestInfoDto,
+  ): string {
+    this.appService.emitMessage(user, info);
     return 'OK';
   }
 }
