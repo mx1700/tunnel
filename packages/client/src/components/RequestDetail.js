@@ -20,7 +20,7 @@ export function RequestDetail({ log }) {
                     {nav === 2 && <ResponseInfo response={log.response} />}
                 </>
             ) : (
-                <Box p={5}>N/A</Box>
+                <Box p={3}>No item selected</Box>
             )}
         </Box>
     )
