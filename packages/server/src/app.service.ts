@@ -9,9 +9,8 @@ export class AppService {
   constructor() {
     setInterval(() => {
       const data = LogData();
-      console.log(JSON.stringify(data));
-      this.emitMessage('1', data);
-    }, 1000);
+      this.emitMessage('test', data);
+    }, 3000);
   }
 
   getHello(): string {
@@ -38,8 +37,6 @@ export class AppService {
       this.listen.set(username, new Set());
     }
     this.listen.get(username).add(client);
-
-    console.log(this.listen);
   }
 
   removeListener(client: Socket): void {
@@ -54,6 +51,5 @@ export class AppService {
         this.listen.delete(username);
       }
     }
-    console.log(this.listen);
   }
 }

@@ -33,11 +33,7 @@ export class WsGateway
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(
-      `Client connected: ${client.id}, args:`,
-      args,
-      client.handshake.query,
-    );
+    this.logger.log(`Client connected: ${client.id}`);
     this.appService.addListener(client);
   }
 }

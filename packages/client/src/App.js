@@ -21,7 +21,7 @@ import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 
 function App() {
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useLocalStorage('username');
     const [connected, setConnected] = useState(false);
     const [requests, setRequests] = useWs(connected && username);
     const [selectedRequest, setSelectedRequest] = useState(null);
@@ -86,7 +86,8 @@ function useWs(phone) {
         if (!phone) {
             return;
         }
-        const socket = io('http://localhost:3001/', {query: {username: phone}})
+
+        const socket = io(process.env.REACT_APP_WS_URL, {query: {username: phone}})
         socket.on('connect', () => {
             setConnected(true)
         })
@@ -109,6 +110,14 @@ function useWs(phone) {
         }
     }, [phone])
     return [requests, setRequests]
+}
+
+function useLocalStorage(key) {
+    const [username, setUsername] = useState(() => (localStorage.getItem(key) ?? ''));
+    useEffect(() => {
+        localStorage.setItem(key, username);
+    },[username, key])
+    return [username, setUsername]
 }
 
 export default App;

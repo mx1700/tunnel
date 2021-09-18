@@ -50,7 +50,7 @@ function RequestInfo({ request }) {
         <Box p={3}>
             <Box mb={2}>
                 <DetailLabel>Query</DetailLabel>
-                <code style={{fontSize:13}}>{request.query}</code>
+                <code style={{fontSize:13}}>{request.query || 'None'}</code>
             </Box>
             <Box mb={2}>
               <DetailLabel>Body</DetailLabel>

@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import {DetailLabel} from "./Common";
 
 export function RequestTable({ list, selectedItem, onSelect }) {
-    console.log(list)
     return (
         <Box borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2}>
             <table m={10} style={{border: "1px solid #ccc",borderCollapse: "collapse"}}>
@@ -34,7 +33,11 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                         >
                             <td>{i.domain}</td>
                             <td><Label variant="medium" sx={{mr: 2, bg:colors[i.method]}}>{i.method}</Label></td>
-                            <td>{i.path}</td>
+                            <td>
+                                {i.path}
+                                {i.response.status === 500 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.dangerInverse'}}>{i.response.status}</Label>}
+                                {i.response.status === 401 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.warningInverse', color: '#000'}}>{i.response.status}</Label>}
+                            </td>
                             <td>{i.duration}ms</td>
                             <td>{time}</td>
                         </tr>
