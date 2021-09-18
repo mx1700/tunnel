@@ -44,7 +44,7 @@ function App() {
                         <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat"/>
                     </Header.Item>
                 </Header>
-                <Box m={4} p={3} bg="bg.primary" borderRadius={2} boxShadow="2px 2px #eee">
+                <Box m={4} p={3} bg="bg.primary" borderRadius={2} boxShadow="2px 2px #eee" minHeight={640}>
                     <SubNav aria-label="Main" mb={3} display="flex">
                         <FilteredSearch>
                             <Dropdown>

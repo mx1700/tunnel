@@ -44,6 +44,11 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                     )
                 }) }
                 </tbody>
+                { (!list || list.length === 0) && <tfoot>
+                <tr>
+                    <td colspan={100} style={{textAlign: 'center', padding: 16, fontSize: 16}}>No data</td>
+                </tr>
+                </tfoot>}
             </table>
         </Box>
     )

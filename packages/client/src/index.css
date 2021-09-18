@@ -17,7 +17,7 @@ table {
   border-collapse: collapse;
   border-radius: 1px;
   border-spacing: 0;
-  border: 0px solid #e1e4e8;
+  border: 0;
   overflow: hidden;
   font-size: 14px;
   margin: -1px;
@@ -30,9 +30,9 @@ th {
 
 th, td {
   border: 1px solid #e1e4e8;
-  padding: 8px 12px;
+  padding: 8px 12px 9px 12px;
 }
-tr:hover{
+tbody tr:hover{
   background-color: #f6f8fa;
 }
 
