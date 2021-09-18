@@ -21,9 +21,9 @@ import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 
 function App() {
-    const [phone, setPhone] = useState('');
+    const [username, setUsername] = useState('');
     const [connected, setConnected] = useState(false);
-    const [requests, setRequests] = useWs(connected && phone);
+    const [requests, setRequests] = useWs(connected && username);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [filter, setFilter] = useState('')
 
@@ -48,10 +48,10 @@ function App() {
                     <SubNav aria-label="Main" mb={3} display="flex">
                         <FilteredSearch>
                             <Dropdown>
-                                <Dropdown.Button>手机号</Dropdown.Button>
+                                <Dropdown.Button>账号</Dropdown.Button>
                             </Dropdown>
-                            <TextInput type="search" disabled={connected} width={160} value={phone}
-                                       onChange={(e) => setPhone(e.target.value.trim())}/>
+                            <TextInput type="search" disabled={connected} width={160} value={username}
+                                       onChange={(e) => setUsername(e.target.value.trim())}/>
                         </FilteredSearch>
                         {!connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
                             开始
@@ -86,7 +86,7 @@ function useWs(phone) {
         if (!phone) {
             return;
         }
-        const socket = io('http://localhost:3001/', {query: {phone: phone}})
+        const socket = io('http://localhost:3001/', {query: {username: phone}})
         socket.on('connect', () => {
             setConnected(true)
         })

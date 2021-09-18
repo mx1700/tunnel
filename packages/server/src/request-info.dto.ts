@@ -1,10 +1,23 @@
 export class RequestInfoDto {
-  requestId: string;
-  domain: string;
-  method: string;
-  path: string;
-  duration: number;
-  time: number;
-  request: any;
-  response: any;
+  user: {
+    uuid: string;
+    username: string;
+  };
+  data: {
+    requestId: string;
+    domain: string;
+    method: string;
+    path: string;
+    duration: number;
+    time: number;
+    request: {
+      query: string;
+      body: any;
+      headers: Record<string, string>;
+    };
+    response: {
+      body: any;
+      headers: Record<string, string>;
+    };
+  };
 }

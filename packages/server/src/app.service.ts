@@ -8,7 +8,9 @@ export class AppService {
 
   constructor() {
     setInterval(() => {
-      this.emitMessage('1', LogData());
+      const data = LogData();
+      console.log(JSON.stringify(data));
+      this.emitMessage('1', data);
     }, 1000);
   }
 
@@ -16,38 +18,40 @@ export class AppService {
     return 'Hello World!';
   }
 
-  emitMessage(phone: string, body: any) {
+  emitMessage(username: string, body: any) {
     //不阻塞尽早返回
     setTimeout(() => {
-      if (this.listen.has(phone)) {
-        this.listen.get(phone).forEach((client) => client.emit('onData', body));
+      if (this.listen.has(username)) {
+        this.listen
+          .get(username)
+          .forEach((client) => client.emit('onData', body));
       }
     }, 0);
   }
 
   addListener(client: Socket): void {
-    const phone = client.handshake.query.phone as string;
-    if (!phone) {
-      throw new Error('没有 Phone 参数');
+    const username = client.handshake.query.username as string;
+    if (!username) {
+      return;
     }
-    if (!this.listen.has(phone)) {
-      this.listen.set(phone, new Set());
+    if (!this.listen.has(username)) {
+      this.listen.set(username, new Set());
     }
-    this.listen.get(phone).add(client);
+    this.listen.get(username).add(client);
 
     console.log(this.listen);
   }
 
   removeListener(client: Socket): void {
-    const phone = client.handshake.query.phone as string;
-    if (!phone) {
-      throw new Error('没有 Phone 参数');
+    const username = client.handshake.query.username as string;
+    if (!username) {
+      return;
     }
-    if (this.listen.has(phone)) {
-      const set = this.listen.get(phone);
+    if (this.listen.has(username)) {
+      const set = this.listen.get(username);
       set.delete(client);
       if (set.size === 0) {
-        this.listen.delete(phone);
+        this.listen.delete(username);
       }
     }
     console.log(this.listen);

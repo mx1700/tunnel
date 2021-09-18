@@ -11,12 +11,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/logRequest/:user')
-  logRequest(
-    @Param('user') user: string,
-    @Body() info: RequestInfoDto,
-  ): string {
-    this.appService.emitMessage(user, info);
+  @Post('/logRequest')
+  logRequest(@Body() info: RequestInfoDto): string {
+    this.appService.emitMessage(info.user.username, info.data);
     return 'OK';
   }
 }
