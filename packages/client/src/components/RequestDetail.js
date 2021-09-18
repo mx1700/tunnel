@@ -7,7 +7,7 @@ export function RequestDetail({ log }) {
     const [nav, setNav] = useState(1);
 
     return (
-        <Box width={400} borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2}>
+        <Box width={400} borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2} wordBreak style={{ wordBreak:'break-all' }} overflow={'hidden'}>
             <TabNav list={[
                 { value: 1, name: 'Request' },
                 { value: 2, name: 'Response' },
@@ -16,8 +16,10 @@ export function RequestDetail({ log }) {
             ]} value={nav} onChange={setNav}/>
             {log ? (
                 <>
-                    {nav === 1 && <RequestInfo request={log.request} />}
-                    {nav === 2 && <ResponseInfo response={log.response} />}
+                  {nav === 1 && <RequestInfo request={log.request} />}
+                  {nav === 2 && <ResponseInfo response={log.response} />}
+                  {nav === 3 && <Box p={3}>Not supported</Box>}
+                  {nav === 4 && <Box p={3}>Not supported</Box>}
                 </>
             ) : (
                 <Box p={3}>No item selected</Box>
@@ -30,11 +32,19 @@ export function RequestDetail({ log }) {
 function TabNav({ list, value, onChange }) {
 
     return (
-        <UnderlineNav aria-label="Main" full={true}>
+        <UnderlineNav aria-label="Main" full={true} bg={"#f6f8fa"}>
             {list.map(item => {
                 const selected = item.value === value;
                 return (
-                    <UnderlineNav.Link key={item.value} href="#" px={3} py={2} mr={0} selected={selected} onClick={() => onChange(item.value)}>{item.name}</UnderlineNav.Link>
+                    <UnderlineNav.Link
+                      key={item.value}
+                      href="#"
+                      px={3} py={2} mr={0}
+                      selected={selected}
+                      onClick={() => onChange(item.value)}
+                    >
+                      {item.name}
+                    </UnderlineNav.Link>
                 )
             })}
             {/*<UnderlineNav.Link href="#home" px={3} py={2} mr={0} selected>Request</UnderlineNav.Link>*/}

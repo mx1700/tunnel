@@ -4,7 +4,7 @@ import {DetailLabel} from "./Common";
 
 export function RequestTable({ list, selectedItem, onSelect }) {
     return (
-        <Box borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2}>
+        <Box borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2} overflow={'hidden'}>
             <table m={10} style={{border: "1px solid #ccc",borderCollapse: "collapse"}}>
                 <thead>
                 <th>Domain</th>

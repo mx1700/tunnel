@@ -17,17 +17,10 @@ table {
   border-collapse: collapse;
   border-radius: 1px;
   border-spacing: 0;
-  border: 1px solid #e1e4e8;
+  border: 0px solid #e1e4e8;
   overflow: hidden;
   font-size: 14px;
-}
-
-table tr:last-child td:first-child {
-  border-bottom-left-radius: 10px;
-}
-
-table tr:last-child td:last-child {
-  border-bottom-right-radius: 10px;
+  margin: -1px;
 }
 
 th {
@@ -35,7 +28,7 @@ th {
   text-align: left;
 }
 
-table, th, td {
+th, td {
   border: 1px solid #e1e4e8;
   padding: 8px 12px;
 }

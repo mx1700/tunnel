@@ -44,7 +44,7 @@ function App() {
                         <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat"/>
                     </Header.Item>
                 </Header>
-                <Box m={4} p={4} pt={3} bg="bg.primary">
+                <Box m={4} p={3} bg="bg.primary" borderRadius={2} boxShadow="2px 2px #eee">
                     <SubNav aria-label="Main" mb={3} display="flex">
                         <FilteredSearch>
                             <Dropdown>
@@ -56,9 +56,13 @@ function App() {
                         {!connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
                             开始
                         </ButtonPrimary>}
-                        {connected && <><ButtonDanger ml={2} onClick={() => setConnected(false)}><SquareFillIcon/>
-                            停止
-                        </ButtonDanger><Spinner size="medium"/></>}
+                        {connected && <>
+                            <ButtonDanger ml={2} onClick={() => setConnected(false)}>
+                                <SquareFillIcon/>
+                                停止
+                            </ButtonDanger>
+                            <Box mt={2}><Spinner size="small"/></Box>
+                        </>}
                         <Button ml={2} onClick={() => setRequests([])}>清屏</Button>
                         <TextInput type="search" placeholder="Path Search" icon={SearchIcon} width={240} value={filter}
                                    onChange={(e) => setFilter(e.target.value.trim())}/>
