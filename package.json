@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "serve": "pnpm start --filter @tunnel/server",
+    "serve": "pnpm start:dev --filter @tunnel/server",
     "client": "pnpm start --filter @tunnel/client"
   },
   "author": "",
