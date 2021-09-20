@@ -112,4 +112,4 @@ $ node build/server/main.js
 
 ## 使用许可
 
-[MIT](LICENSE) © Richard Littauer
+[MIT](LICENSE)
