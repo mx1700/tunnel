@@ -1,6 +1,5 @@
 export class RequestInfoDto {
   user: {
-    uuid: string;
     username: string;
   };
   data: {

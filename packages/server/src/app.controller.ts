@@ -13,7 +13,7 @@ export class AppController {
 
   @Post('/logRequest')
   logRequest(@Body() info: RequestInfoDto): string {
-    this.appService.emitMessage(info.user.username, info.data);
+    this.appService.emitMessage(info.user.username, info);
     return 'OK';
   }
 }
