@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { WsGateway } from './ws.gateway';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { join } from 'path';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, WsGateway],
+  providers: [AppService, WsGateway, PrismaService],
 })
 export class AppModule {}
