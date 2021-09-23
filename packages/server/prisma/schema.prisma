@@ -22,4 +22,6 @@ model Request {
   time      DateTime
   request   String
   response  String
+
+  @@index([username, time])
 }
