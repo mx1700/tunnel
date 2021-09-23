@@ -28,6 +28,7 @@
     "@nestjs/serve-static": "^2.2.2",
     "@nestjs/websockets": "^8.0.6",
     "@prisma/client": "^3.0.2",
+    "dayjs": "^1.10.7",
     "express": "^4.17.1",
     "fastify-static": "^4.2.3",
     "reflect-metadata": "^0.1.13",

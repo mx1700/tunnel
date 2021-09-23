@@ -7,11 +7,13 @@ export function RequestTable({ list, selectedItem, onSelect }) {
         <Box borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2} overflow={'hidden'}>
             <table m={10} style={{border: "1px solid #ccc",borderCollapse: "collapse"}}>
                 <thead>
-                <th>Domain</th>
-                <th>Method</th>
-                <th width="100%">Path</th>
-                <th>Duration</th>
-                <th>Time</th>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Method</th>
+                        <th width="100%">Path</th>
+                        <th>Duration</th>
+                        <th>Time</th>
+                    </tr>
                 </thead>
                 <tbody>
                 { list.map((item) => {
@@ -47,7 +49,7 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                 </tbody>
                 { (!list || list.length === 0) && <tfoot>
                 <tr>
-                    <td colspan={100} style={{textAlign: 'center', padding: 16, fontSize: 16}}>No data</td>
+                    <td colSpan={100} style={{textAlign: 'center', padding: 16, fontSize: 16}}>No data</td>
                 </tr>
                 </tfoot>}
             </table>

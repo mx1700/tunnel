@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { RequestInfoDto } from './request-info.dto';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 @Controller()
 export class AppController {

@@ -17,6 +17,7 @@ specifiers:
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^4.31.2
   '@typescript-eslint/parser': ^4.31.2
+  dayjs: ^1.10.7
   eslint: ^7.32.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^3.4.1
@@ -44,6 +45,7 @@ dependencies:
   '@nestjs/serve-static': registry.nlark.com/@nestjs/serve-static/2.2.2_67f7e5db8827badcb202b1d38f6b1aea
   '@nestjs/websockets': registry.nlark.com/@nestjs/websockets/8.0.6_d9cb7157596bf7c6176480174d173b36
   '@prisma/client': registry.nlark.com/@prisma/client/3.0.2_prisma@3.0.2
+  dayjs: registry.nlark.com/dayjs/1.10.7
   express: 4.17.1
   fastify-static: registry.nlark.com/fastify-static/4.2.3
   reflect-metadata: registry.nlark.com/reflect-metadata/0.1.13
@@ -2816,6 +2818,9 @@ packages:
     requiresBuild: true
     peerDependencies:
       prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
     dependencies:
       '@prisma/engines-version': registry.nlark.com/@prisma/engines-version/2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db
       prisma: registry.nlark.com/prisma/3.0.2
@@ -3867,6 +3872,12 @@ packages:
       whatwg-mimetype: registry.nlark.com/whatwg-mimetype/2.3.0
       whatwg-url: registry.nlark.com/whatwg-url/8.7.0
     dev: true
+
+  registry.nlark.com/dayjs/1.10.7:
+    resolution: {integrity: sha1-LPX5Gt0oEWdIRAhmoKHSbzps5Gg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/dayjs/download/dayjs-1.10.7.tgz}
+    name: dayjs
+    version: 1.10.7
+    dev: false
 
   registry.nlark.com/debug/2.6.9:
     resolution: {integrity: sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/debug/download/debug-2.6.9.tgz}

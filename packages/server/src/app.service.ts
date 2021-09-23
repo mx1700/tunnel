@@ -88,6 +88,8 @@ export class AppService {
         path:
           keywords && keywords.length > 0 ? { contains: keywords } : undefined,
       },
+      take: 200,
+      orderBy: { time: 'desc' },
     });
 
     return list.map((item) => ({

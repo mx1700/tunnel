@@ -12,7 +12,7 @@ import {
     ButtonPrimary,
     ButtonDanger,
     Spinner,
-    StyledOcticon, SelectMenu
+    StyledOcticon, SelectMenu, Text
 } from '@primer/components'
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
@@ -20,6 +20,7 @@ import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 import dayjs from "dayjs";
+import {useRequest} from "ahooks";
 
 function App() {
     const [type, setType] = useState('realtime')
@@ -29,12 +30,16 @@ function App() {
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [filter, setFilter] = useState('')
 
-    const [startTime, setStartTime] = useState(() => dayjs().add('-1', 'hour').format('YYYY-MM-DDTHH:mm'))
-    const [endTime, setEndTime] = useState(() => dayjs().format('YYYY-MM-DDTHH:mm'))
+    const [startTime, setStartTime] = useState(() => dayjs().add('-15', 'minute').format('YYYY-MM-DDTHH:mm'))
+    const [endTime, setEndTime] = useState(() => dayjs().add('1', 'minute').format('YYYY-MM-DDTHH:mm'))
 
-    const realtime = type === 'realtime';
-    const history = type === 'history';
-    const listData = filter.length > 0 ? requests.filter((r) => r.path.includes(filter)) : requests;
+    const { loading, run: query, data: history } = useRequest(searchHistory, {
+        manual: true,
+        initialData: []
+    });
+    const realtimeMode = type === 'realtime';
+    const historyMode = type === 'history';
+    const listData = realtimeMode ? (filter.length > 0 ? requests.filter((r) => r.path.includes(filter)) : requests) : history;
 
     return (
         <ThemeProvider>
@@ -58,25 +63,26 @@ function App() {
                             <Dropdown>
                                 <Dropdown.Button>账号</Dropdown.Button>
                             </Dropdown>
-                            <TextInput type="search" disabled={connected} width={160} value={username}
+                            <TextInput type="search" disabled={connected} width={140} value={username}
                                        onChange={(e) => setUsername(e.target.value.trim())}/>
                         </FilteredSearch>
-                        {history && <TextInput type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} style={{height: 20}} width={230} />}
-                        {history && <TextInput type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} style={{height: 20}} width={230} />}
-                        {realtime && !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
+                        {historyMode && <TextInput type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} style={{height: 20}} width={230} />}
+                        {historyMode && <Text as='span' mt={1}>—</Text>}
+                        {historyMode && <TextInput type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} style={{height: 20}} width={230} />}
+                        {realtimeMode && !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
                             开始
                         </ButtonPrimary>}
-                        {realtime && connected && <>
+                        {realtimeMode && connected && <>
                             <ButtonDanger ml={2} onClick={() => setConnected(false)}>
                                 <SquareFillIcon/>
                                 停止
                             </ButtonDanger>
                             <Box mt={2}><Spinner size="small"/></Box>
                         </>}
-                        {realtime && <Button ml={2} onClick={() => setRequests([])}>清屏</Button>}
-                        <TextInput type="search" placeholder="Path Search" icon={SearchIcon} width={240} value={filter}
+                        {realtimeMode && <Button ml={2} onClick={() => setRequests([])}>清屏</Button>}
+                        <TextInput type="search" placeholder="Path Search" icon={SearchIcon} width={200} value={filter}
                                    onChange={(e) => setFilter(e.target.value.trim())}/>
-                        {history && <ButtonPrimary>搜索</ButtonPrimary>}
+                        {historyMode && <ButtonPrimary onClick={() => query(username, startTime, endTime, filter)}>搜索</ButtonPrimary>}
                     </SubNav>
                     <Box display="flex">
                         <Box flexGrow={1} mr={3}>
@@ -137,28 +143,25 @@ function useLocalStorage(key) {
 
 function Select({ options, value, onChange }) {
     const selectName = options[value];
-    // return (
-    //   <Dropdown>
-    //       <Dropdown.Button>{selectName}</Dropdown.Button>
-    //       <Dropdown.Menu direction="se">
-    //           { Object.entries(options).map(([index, name]) => {
-    //               return (<Dropdown.Item onClick={() => onChange && onChange(index)}>{name}</Dropdown.Item>)
-    //           })}
-    //       </Dropdown.Menu>
-    //   </Dropdown>
-    // )
     return (
       <SelectMenu>
           <Button as="summary">{selectName}</Button>
           <SelectMenu.Modal width={110}>
               <SelectMenu.List>
                   {Object.entries(options).map(([index, name]) => {
-                      return (<SelectMenu.Item href="#" onClick={() => onChange && onChange(index)}>{name}</SelectMenu.Item>)
+                      return (<SelectMenu.Item key={index} href="#" onClick={() => onChange && onChange(index)}>{name}</SelectMenu.Item>)
                   })}
               </SelectMenu.List>
           </SelectMenu.Modal>
       </SelectMenu>
     )
+}
+
+async function searchHistory(username,startTime,endTime,keywords) {
+    const params = new URLSearchParams({ username, startTime, endTime, keywords })
+    return fetch(process.env.REACT_APP_WS_URL + 'searchHistory?' + params.toString()).then(function(response) {
+        return response.json();
+    })
 }
 
 export default App;
