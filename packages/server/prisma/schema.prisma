@@ -9,6 +9,8 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  output   = ".client"
+  binaryTargets = ["darwin-arm64", "rhel-openssl-1.1.x"]
 }
 
 model Request {

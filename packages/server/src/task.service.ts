@@ -11,7 +11,7 @@ export class TasksService {
 
   @Cron('0 0 * * *')
   async clearHistory() {
-    const queryTime = dayjs().add(-2, 'minute').toDate();
+    const queryTime = dayjs().add(-2, 'day').toDate();
     const r = await this.db.request.deleteMany({
       where: { time: { lt: queryTime } },
     });

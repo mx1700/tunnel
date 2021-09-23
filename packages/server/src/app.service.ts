@@ -10,10 +10,10 @@ export class AppService {
   listen: Map<string, Set<Socket>> = new Map();
 
   constructor(private readonly db: PrismaService) {
-    setInterval(() => {
-      const data = LogData();
-      this.emitMessage('test', data);
-    }, 3000);
+    // setInterval(() => {
+    //   const data = LogData();
+    //   this.emitMessage('test', data);
+    // }, 3000);
   }
 
   getHello(): string {
