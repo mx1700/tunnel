@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Socket } from 'socket.io';
 import { LogData } from './data';
-import { RequestInfoDto } from './request-info.dto';
+import { RequestData, RequestInfoDto } from './request-info.dto';
 import { PrismaService } from './prisma.service';
 import { randomUUID } from 'crypto';
 
@@ -22,11 +22,12 @@ export class AppService {
 
   emitMessage(username: string, body: RequestInfoDto) {
     //不阻塞尽早返回
+    body.id = randomUUID().toString();
     setTimeout(() => {
       if (this.listen.has(username)) {
         this.listen
           .get(username)
-          .forEach((client) => client.emit('onData', body.data));
+          .forEach((client) => client.emit('onData', body));
       }
       this.saveRequest(body);
     }, 0);
@@ -60,7 +61,7 @@ export class AppService {
   async saveRequest(req: RequestInfoDto) {
     await this.db.request.create({
       data: {
-        id: randomUUID().toString(),
+        id: req.id,
         username: req.user.username,
         requestId: req.data.requestId,
         domain: req.data.domain,
@@ -72,5 +73,36 @@ export class AppService {
         response: JSON.stringify(req.data.response),
       },
     });
+  }
+
+  async searchHistory(
+    username: string,
+    startTime: Date,
+    endTime: Date,
+    keywords: string,
+  ): Promise<RequestInfoDto[]> {
+    const list = await this.db.request.findMany({
+      where: {
+        username: username,
+        time: { gte: startTime, lte: endTime },
+        path:
+          keywords && keywords.length > 0 ? { contains: keywords } : undefined,
+      },
+    });
+
+    return list.map((item) => ({
+      id: item.id,
+      user: { username: item.username },
+      data: {
+        requestId: item.requestId,
+        domain: item.domain,
+        method: item.method,
+        path: item.path,
+        duration: item.duration,
+        time: item.time.getTime(),
+        request: JSON.parse(item.request) as any,
+        response: JSON.parse(item.response) as any,
+      },
+    }));
   }
 }

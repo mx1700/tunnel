@@ -14,10 +14,11 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                 <th>Time</th>
                 </thead>
                 <tbody>
-                { list.map((i) => {
-                    const selected = i === selectedItem;
+                { list.map((item) => {
+                    const data = item.data;
+                    const selected = data === selectedItem;
                     const style = selected ? { background: "#ddf4ff" } : {};
-                    const time = dayjs(i.time).format('HH:mm:ss')
+                    const time = dayjs(data.time).format('HH:mm:ss')
                     const colors = {
                         'GET': 'bg.successInverse',
                         'POST': 'bg.infoInverse',
@@ -28,17 +29,17 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                     }
                     return (
                         <tr
-                            onClick={() => onSelect && onSelect(i)} key={i.requestId}
+                            onClick={() => onSelect && onSelect(data)} key={data.requestId}
                             style={style}
                         >
-                            <td>{i.domain}</td>
-                            <td><Label variant="medium" sx={{mr: 2, bg:colors[i.method]}}>{i.method}</Label></td>
+                            <td>{data.domain}</td>
+                            <td><Label variant="medium" sx={{mr: 2, bg:colors[data.method]}}>{data.method}</Label></td>
                             <td>
-                                {i.path}
-                                {i.response.status === 500 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.dangerInverse'}}>{i.response.status}</Label>}
-                                {i.response.status === 401 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.warningInverse', color: '#000'}}>{i.response.status}</Label>}
+                                {data.path}
+                                {data.response.status === 500 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.dangerInverse'}}>{data.response.status}</Label>}
+                                {data.response.status === 401 && <Label ml={1} variant="small" sx={{mr: 2, bg:'bg.warningInverse', color: '#000'}}>{data.response.status}</Label>}
                             </td>
-                            <td>{i.duration}ms</td>
+                            <td>{data.duration}ms</td>
                             <td>{time}</td>
                         </tr>
                     )

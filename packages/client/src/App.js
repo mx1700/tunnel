@@ -12,21 +12,28 @@ import {
     ButtonPrimary,
     ButtonDanger,
     Spinner,
-    Text, StyledOcticon
+    StyledOcticon, SelectMenu
 } from '@primer/components'
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
+import dayjs from "dayjs";
 
 function App() {
+    const [type, setType] = useState('realtime')
     const [username, setUsername] = useLocalStorage('username');
     const [connected, setConnected] = useState(false);
     const [requests, setRequests] = useWs(connected && username);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [filter, setFilter] = useState('')
 
+    const [startTime, setStartTime] = useState(() => dayjs().add('-1', 'hour').format('YYYY-MM-DDTHH:mm'))
+    const [endTime, setEndTime] = useState(() => dayjs().format('YYYY-MM-DDTHH:mm'))
+
+    const realtime = type === 'realtime';
+    const history = type === 'history';
     const listData = filter.length > 0 ? requests.filter((r) => r.path.includes(filter)) : requests;
 
     return (
@@ -39,13 +46,14 @@ function App() {
                             <span>Tunnel</span>
                         </Header.Link>
                     </Header.Item>
-                    <Header.Item full></Header.Item>
+                    <Header.Item full/>
                     <Header.Item mr={0}>
                         <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat"/>
                     </Header.Item>
                 </Header>
                 <Box m={4} p={3} bg="bg.primary" borderRadius={2} boxShadow="2px 2px #eee" minHeight={640}>
                     <SubNav aria-label="Main" mb={3} display="flex">
+                        <Select options={{realtime: "实时",history: "历史"}} value={type} onChange={setType} />
                         <FilteredSearch>
                             <Dropdown>
                                 <Dropdown.Button>账号</Dropdown.Button>
@@ -53,19 +61,22 @@ function App() {
                             <TextInput type="search" disabled={connected} width={160} value={username}
                                        onChange={(e) => setUsername(e.target.value.trim())}/>
                         </FilteredSearch>
-                        {!connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
+                        {history && <TextInput type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} style={{height: 20}} width={230} />}
+                        {history && <TextInput type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} style={{height: 20}} width={230} />}
+                        {realtime && !connected && <ButtonPrimary ml={2} onClick={() => setConnected(true)}><TriangleRightIcon/>
                             开始
                         </ButtonPrimary>}
-                        {connected && <>
+                        {realtime && connected && <>
                             <ButtonDanger ml={2} onClick={() => setConnected(false)}>
                                 <SquareFillIcon/>
                                 停止
                             </ButtonDanger>
                             <Box mt={2}><Spinner size="small"/></Box>
                         </>}
-                        <Button ml={2} onClick={() => setRequests([])}>清屏</Button>
+                        {realtime && <Button ml={2} onClick={() => setRequests([])}>清屏</Button>}
                         <TextInput type="search" placeholder="Path Search" icon={SearchIcon} width={240} value={filter}
                                    onChange={(e) => setFilter(e.target.value.trim())}/>
+                        {history && <ButtonPrimary>搜索</ButtonPrimary>}
                     </SubNav>
                     <Box display="flex">
                         <Box flexGrow={1} mr={3}>
@@ -122,6 +133,32 @@ function useLocalStorage(key) {
         localStorage.setItem(key, username);
     },[username, key])
     return [username, setUsername]
+}
+
+function Select({ options, value, onChange }) {
+    const selectName = options[value];
+    // return (
+    //   <Dropdown>
+    //       <Dropdown.Button>{selectName}</Dropdown.Button>
+    //       <Dropdown.Menu direction="se">
+    //           { Object.entries(options).map(([index, name]) => {
+    //               return (<Dropdown.Item onClick={() => onChange && onChange(index)}>{name}</Dropdown.Item>)
+    //           })}
+    //       </Dropdown.Menu>
+    //   </Dropdown>
+    // )
+    return (
+      <SelectMenu>
+          <Button as="summary">{selectName}</Button>
+          <SelectMenu.Modal width={110}>
+              <SelectMenu.List>
+                  {Object.entries(options).map(([index, name]) => {
+                      return (<SelectMenu.Item href="#" onClick={() => onChange && onChange(index)}>{name}</SelectMenu.Item>)
+                  })}
+              </SelectMenu.List>
+          </SelectMenu.Modal>
+      </SelectMenu>
+    )
 }
 
 export default App;
