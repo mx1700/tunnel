@@ -40,6 +40,12 @@ Tunnel 是一个开发环境的接口实时查看工具
 $ pnpm install -r
 ```
 
+生成 sqlite 数据库
+```sh
+$ cd packages/server
+$ pnpm prisma db push
+```
+
 构建
 ```sh
 $ pnpm build -r
@@ -106,9 +112,9 @@ $ node build/server/main.js
 ## TODO
 
 - [x] 数据存储
-- [ ] 历史数据自动清理
+- [x] 历史数据自动清理
+- [x] 历史查询
 - [ ] 分享
-- [ ] 历史查询
 
 ## 维护者
 

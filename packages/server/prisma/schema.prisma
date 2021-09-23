@@ -23,5 +23,5 @@ model Request {
   request   String
   response  String
 
-  @@index([username, time])
+  @@index([time, username])
 }

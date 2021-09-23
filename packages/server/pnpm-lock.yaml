@@ -6,11 +6,13 @@ specifiers:
   '@nestjs/core': ^8.0.6
   '@nestjs/platform-express': ^8.0.6
   '@nestjs/platform-socket.io': ^8.0.6
+  '@nestjs/schedule': ^1.0.1
   '@nestjs/schematics': ^8.0.3
   '@nestjs/serve-static': ^2.2.2
   '@nestjs/testing': ^8.0.6
   '@nestjs/websockets': ^8.0.6
   '@prisma/client': ^3.0.2
+  '@types/cron': ^1.7.3
   '@types/express': ^4.17.13
   '@types/jest': ^27.0.2
   '@types/node': ^16.9.4
@@ -43,6 +45,7 @@ dependencies:
   '@nestjs/core': registry.nlark.com/@nestjs/core/8.0.6_29489e331a4938cf69ca8b008049576b
   '@nestjs/platform-express': registry.nlark.com/@nestjs/platform-express/8.0.6_67f7e5db8827badcb202b1d38f6b1aea
   '@nestjs/platform-socket.io': registry.nlark.com/@nestjs/platform-socket.io/8.0.6_875c1aa90becd3a53d7e39e33971fbfe
+  '@nestjs/schedule': registry.npmmirror.com/@nestjs/schedule/1.0.1_be74d10e7c1accb5ea6dd58471a1ec77
   '@nestjs/serve-static': registry.nlark.com/@nestjs/serve-static/2.2.2_67f7e5db8827badcb202b1d38f6b1aea
   '@nestjs/websockets': registry.nlark.com/@nestjs/websockets/8.0.6_d9cb7157596bf7c6176480174d173b36
   '@prisma/client': registry.nlark.com/@prisma/client/3.0.2_prisma@3.0.2
@@ -58,6 +61,7 @@ devDependencies:
   '@nestjs/cli': registry.nlark.com/@nestjs/cli/8.1.1
   '@nestjs/schematics': registry.nlark.com/@nestjs/schematics/8.0.3_typescript@4.4.3
   '@nestjs/testing': registry.nlark.com/@nestjs/testing/8.0.6_0f6569408de1f55b1e6481ed04272f1a
+  '@types/cron': registry.npmmirror.com/@types/cron/1.7.3
   '@types/express': registry.nlark.com/@types/express/4.17.13
   '@types/jest': registry.nlark.com/@types/jest/27.0.2
   '@types/node': registry.nlark.com/@types/node/16.9.4
@@ -3870,6 +3874,14 @@ packages:
       yaml: registry.nlark.com/yaml/1.10.2
     dev: true
 
+  registry.nlark.com/cron/1.7.2:
+    resolution: {integrity: sha1-LqHzXBOKB+2sKsWvUITtb+5XI9s=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/cron/download/cron-1.7.2.tgz}
+    name: cron
+    version: 1.7.2
+    dependencies:
+      moment-timezone: registry.nlark.com/moment-timezone/0.5.33
+    dev: false
+
   registry.nlark.com/cssom/0.3.8:
     resolution: {integrity: sha1-nxJ29bK0Y/IRTT8sdSUK+MGjb0o=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/cssom/download/cssom-0.3.8.tgz}
     name: cssom
@@ -5303,6 +5315,19 @@ packages:
     dependencies:
       mime-db: registry.nlark.com/mime-db/1.49.0
 
+  registry.nlark.com/moment-timezone/0.5.33:
+    resolution: {integrity: sha1-slL9a7V/NBybWaWrYajlGnO70iw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/moment-timezone/download/moment-timezone-0.5.33.tgz}
+    name: moment-timezone
+    version: 0.5.33
+    dependencies:
+      moment: registry.nlark.com/moment/2.29.1
+    dev: false
+
+  registry.nlark.com/moment/2.29.1:
+    resolution: {integrity: sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/moment/download/moment-2.29.1.tgz}
+    name: moment
+    version: 2.29.1
+
   registry.nlark.com/ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/ms/download/ms-2.0.0.tgz}
     name: ms
@@ -6478,4 +6503,30 @@ packages:
     name: yocto-queue
     version: 0.1.0
     engines: {node: '>=10'}
+    dev: true
+
+  registry.npmmirror.com/@nestjs/schedule/1.0.1_be74d10e7c1accb5ea6dd58471a1ec77:
+    resolution: {integrity: sha1-SrP3U8Kg9gbPlpsOx6pOZV6kRNM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@nestjs/schedule/download/@nestjs/schedule-1.0.1.tgz}
+    id: registry.npmmirror.com/@nestjs/schedule/1.0.1
+    name: '@nestjs/schedule'
+    version: 1.0.1
+    peerDependencies:
+      '@nestjs/common': ^6.10.11 || ^7.0.0 || ^8.0.0
+      '@nestjs/core': ^7.0.0 || ^8.0.0
+      reflect-metadata: ^0.1.12
+    dependencies:
+      '@nestjs/common': registry.nlark.com/@nestjs/common/8.0.6_486826780eeff986d3746a62b5df4b6b
+      '@nestjs/core': registry.nlark.com/@nestjs/core/8.0.6_29489e331a4938cf69ca8b008049576b
+      cron: registry.nlark.com/cron/1.7.2
+      reflect-metadata: registry.nlark.com/reflect-metadata/0.1.13
+      uuid: registry.nlark.com/uuid/8.3.2
+    dev: false
+
+  registry.npmmirror.com/@types/cron/1.7.3:
+    resolution: {integrity: sha1-mT231UZG9hEoyFFge2S6RJXerpM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/cron/download/@types/cron-1.7.3.tgz}
+    name: '@types/cron'
+    version: 1.7.3
+    dependencies:
+      '@types/node': registry.nlark.com/@types/node/16.9.4
+      moment: registry.nlark.com/moment/2.29.1
     dev: true
