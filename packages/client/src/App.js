@@ -20,10 +20,10 @@ import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 import dayjs from "dayjs";
-import {useRequest} from "ahooks";
+import {useRequest, useToggle} from "ahooks";
 
 function App() {
-    const [type, setType] = useState('realtime')
+    const [type, { toggle: setType }] = useToggle('realtime', 'history');
     const [username, setUsername] = useLocalStorage('username');
     const [connected, setConnected] = useState(false);
     const [requests, setRequests] = useWs(connected && username);
@@ -58,7 +58,9 @@ function App() {
                 </Header>
                 <Box m={4} p={3} bg="bg.primary" borderRadius={2} boxShadow="2px 2px #eee" minHeight={640}>
                     <SubNav aria-label="Main" mb={3} display="flex">
-                        <Select options={{realtime: "实时",history: "历史"}} value={type} onChange={setType} />
+                        <Button onClick={() => setType()}>
+                            {realtimeMode ? '实时' : '历史'}
+                        </Button>
                         <FilteredSearch>
                             <Dropdown>
                                 <Dropdown.Button>账号</Dropdown.Button>
