@@ -16,7 +16,7 @@ import {
 } from '@primer/components'
 import {RequestTable} from "./components/RequestTable";
 import {RequestDetail} from "./components/RequestDetail";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {HubotIcon, SearchIcon, SquareFillIcon, TriangleRightIcon} from '@primer/octicons-react'
 import dayjs from "dayjs";

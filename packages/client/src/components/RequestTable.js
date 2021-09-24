@@ -1,8 +1,22 @@
-import {Box, Label} from "@primer/components";
+import {Box, Button, ButtonDanger, Label, Popover, StyledOcticon, Text} from "@primer/components";
 import dayjs from "dayjs";
 import {DetailLabel} from "./Common";
+import {LinkIcon, SquareFillIcon} from "@primer/octicons-react";
+import { toast } from 'react-toastify';
 
 export function RequestTable({ list, selectedItem, onSelect }) {
+    const notify = (id) => {
+        toast("👏 分享链接已复制", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 1500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        const{ protocol, host } = window.location;
+        navigator.clipboard.writeText(`${protocol}//${host}/share/${id}`)
+    };
     return (
         <Box borderColor="border.primary" borderWidth={1} borderStyle="solid" borderRadius={2} overflow={'hidden'}>
             <table m={10} style={{border: "1px solid #ccc",borderCollapse: "collapse"}}>
@@ -13,6 +27,7 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                         <th width="100%">Path</th>
                         <th>Duration</th>
                         <th>Time</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +58,11 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                             </td>
                             <td>{data.duration}ms</td>
                             <td>{time}</td>
+                            <td>
+                                <Button px={2} onClick={() => notify(item.id)}>
+                                    <StyledOcticon icon={LinkIcon} size={16} color="gray.5" />
+                                </Button>
+                            </td>
                         </tr>
                     )
                 }) }
