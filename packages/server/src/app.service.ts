@@ -4,6 +4,7 @@ import { LogData } from './data';
 import { RequestData, RequestInfoDto } from './request-info.dto';
 import { PrismaService } from './prisma.service';
 import { randomUUID } from 'crypto';
+import { Request } from '../prisma/.client';
 
 @Injectable()
 export class AppService {
@@ -92,7 +93,15 @@ export class AppService {
       orderBy: { time: 'desc' },
     });
 
-    return list.map((item) => ({
+    return list.map(this.coverDto);
+  }
+
+  async getHistory(id: string): Promise<RequestInfoDto> {
+    return this.coverDto(await this.db.request.findUnique({ where: { id } }));
+  }
+
+  coverDto(item: Request): RequestInfoDto {
+    return {
       id: item.id,
       user: { username: item.username },
       data: {
@@ -105,6 +114,6 @@ export class AppService {
         request: JSON.parse(item.request) as any,
         response: JSON.parse(item.response) as any,
       },
-    }));
+    };
   }
 }

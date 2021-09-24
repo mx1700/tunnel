@@ -46,7 +46,7 @@ export function RequestTable({ list, selectedItem, onSelect }) {
                     }
                     return (
                         <tr
-                            onClick={() => onSelect && onSelect(data)} key={data.requestId}
+                            onClick={() => onSelect && onSelect(item)} key={data.requestId}
                             style={style}
                         >
                             <td>{data.domain}</td>

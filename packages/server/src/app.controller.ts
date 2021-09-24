@@ -32,4 +32,9 @@ export class AppController {
       keywords,
     );
   }
+
+  @Get('/request/:id')
+  getHistory(@Param('id') id: string) {
+    return this.appService.getHistory(id);
+  }
 }
