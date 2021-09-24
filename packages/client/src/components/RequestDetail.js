@@ -61,6 +61,7 @@ function RequestInfo({ data, user }) {
   const generalList = [
     ['RequestId', data.requestId],
     ['Domain', data.domain],
+    ['Method', data.method],
     ['Path', data.path],
     ['Query', request.query || 'None'],
     ['Time', dayjs(data.time).format('YYYY-MM-DD HH:mm:ss')],
